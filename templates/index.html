@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Przewidywane statystyki pokazujące, jak może wyglądać Ziemia w 2076 roku.">
+    <title>Ziemia za 50 lat — 2076</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="hero">
+        <nav class="nav">
+            <a class="logo" href="#start">ZIEMIA <span>2076</span></a>
+            <div class="nav-links">
+                <a href="#statystyki">Statystyki</a>
+                <a href="#zrodla">Źródła</a>
+            </div>
+        </nav>
+        <div class="hero-content" id="start">
+            <p class="eyebrow">NASZA PLANETA · PRZYSZŁOŚĆ</p>
+            <h1>Ziemia<br><span>za 50 lat</span></h1>
+            <p class="hero-description">Jak może wyglądać świat w 2076 roku? Poznaj przewidywane zmiany klimatu, przyrody i życia człowieka.</p>
+            <a class="cta" href="#statystyki">Poznaj prognozy <span aria-hidden="true">↓</span></a>
+            <p class="disclaimer">To szacunki i możliwe scenariusze, a nie pewne przewidywania.</p>
+        </div>
+        <div class="hero-orb orb-one"></div>
+        <div class="hero-orb orb-two"></div>
+        <div class="hero-bottom">50 LAT DO PRZODU <span>•</span> ROK 2076</div>
+    </header>
+
+    <main>
+        <section class="intro section-wrap">
+            <div>
+                <p class="eyebrow">CO NAS CZEKA?</p>
+                <h2>Przyszłość zależy<br>od naszych decyzji.</h2>
+            </div>
+            <p class="intro-text">Emisje gazów cieplarnianych, rozwój technologii i sposób, w jaki korzystamy z zasobów Ziemi, wpłyną na życie kolejnych pokoleń. Poniższe liczby pokazują orientacyjne możliwe kierunki zmian.</p>
+        </section>
+
+        <section class="stats-section section-wrap" id="statystyki">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">DANE I PROGNOZY</p>
+                    <h2>10 statystyk o Ziemi</h2>
+                </div>
+                <p class="section-note">Stan bazowy zestawiono z orientacyjnym szacunkiem na 2076 r.</p>
+            </div>
+
+            <div class="stats-grid">
+                {% for stat in statistics %}
+                <article class="stat-card">
+                    <div class="card-image">
+                        <img src="{{ url_for('static', filename='images/' ~ stat.image) }}"
+                             alt="{{ stat.title }} — grafika"
+                             loading="lazy"
+                             onerror="this.parentElement.classList.add('no-image'); this.style.display='none';">
+                        <span class="stat-number">{{ "%02d"|format(stat.number) }}</span>
+                        <span class="image-fallback" aria-hidden="true">Ziemia 2076</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ stat.title }}</h3>
+                        <div class="comparison">
+                            <div class="metric">
+                                <span class="metric-label">PRZED · STAN BAZOWY</span>
+                                <strong>{{ stat.baseline }}</strong>
+                                <small>{{ stat.baseline_note }}</small>
+                            </div>
+                            <div class="metric future">
+                                <span class="metric-label">PO · SZACUNEK 2076</span>
+                                <strong>{{ stat.future }}</strong>
+                            </div>
+                        </div>
+                        <p class="card-description">{{ stat.description }}</p>
+                        <a class="source-link" href="{{ stat.source }}" target="_blank" rel="noopener noreferrer">Sprawdź źródło <span aria-hidden="true">↗</span></a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="takeaway">
+            <div class="takeaway-inner">
+                <p class="eyebrow">PRZYSZŁOŚĆ NIE JEST PRZESĄDZONA</p>
+                <h2>Każda decyzja<br>ma znaczenie.</h2>
+                <p>Ograniczanie emisji, ochrona lasów, rozwój czystej energii i zmniejszanie ilości odpadów mogą pomóc ograniczyć część zagrożeń.</p>
+            </div>
+        </section>
+
+        <section class="sources-section section-wrap" id="zrodla">
+            <p class="eyebrow">SPRAWDŹ DANE</p>
+            <h2>Źródła i opracowania</h2>
+            <p class="sources-intro">Prognozy na 2076 r. są orientacyjne i zależą od przyjętego scenariusza. Nie wszystkie wartości są bezpośrednimi prognozami podanych instytucji — część to szacunki ilustracyjne na potrzeby projektu.</p>
+            <ul class="sources-list">
+                {% for name, url in sources %}
+                <li><a href="{{ url }}" target="_blank" rel="noopener noreferrer">{{ name }} <span aria-hidden="true">↗</span></a></li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <a class="logo" href="#start">ZIEMIA <span>2076</span></a>
+        <p>Projekt edukacyjny · Ziemia za 50 lat</p>
+        <a href="#start" class="back-top">Wróć na górę ↑</a>
+    </footer>
+</body>
+</html>
